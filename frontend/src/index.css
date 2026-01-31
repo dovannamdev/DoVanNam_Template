@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* Custom Design System Variables */
+:root {
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-text-dark: #1F2937;
+  --color-text-light: #6B7280;
+  --color-text-muted: #9CA3AF;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--color-surface);
+    color: var(--color-text-dark);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  button, a, [role="button"] {
+    transition: all 0.2s ease;
+  }
+
+  /* Hover scale effect for buttons */
+  button:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  button:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+
+  /* Selection color */
+  ::selection {
+    background: #C7D2FE;
+    color: #1F2937;
+  }
+}
