@@ -8,6 +8,7 @@ function App() {
   const [currentChat, setCurrentChat] = useState<Chat | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [nextCursor, setNextCursor] = useState<number | null>(null);
@@ -36,6 +37,7 @@ function App() {
           setMessages(result.messages);
           setHasMore(result.hasMore);
           setNextCursor(result.nextCursor);
+          setIsInitialLoading(false);
 
           // Mark initial load as complete after a delay
           setTimeout(() => {
@@ -45,6 +47,7 @@ function App() {
           const newChat = await chatApi.createChat();
           setCurrentChat(newChat);
           setMessages([]);
+          setIsInitialLoading(false);
           isInitialLoadRef.current = false;
         }
       } catch (error) {
@@ -56,6 +59,7 @@ function App() {
         } catch (e) {
           console.error("Failed to create chat:", e);
         }
+        setIsInitialLoading(false);
         isInitialLoadRef.current = false;
       }
     };
@@ -156,6 +160,7 @@ function App() {
           <ChatContainer
             messages={messages}
             isLoading={isLoading}
+            isInitialLoading={isInitialLoading}
             isLoadingMore={isLoadingMore}
             hasMore={hasMore}
             onLoadMore={handleLoadMore}

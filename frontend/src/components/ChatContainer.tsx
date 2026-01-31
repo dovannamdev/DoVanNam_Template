@@ -7,6 +7,7 @@ import MessagesSkeleton from "./MessagesSkeleton";
 interface ChatContainerProps {
   messages: Message[];
   isLoading?: boolean;
+  isInitialLoading?: boolean;
   isLoadingMore?: boolean;
   hasMore?: boolean;
   onLoadMore?: () => void;
@@ -15,6 +16,7 @@ interface ChatContainerProps {
 export default function ChatContainer({
   messages,
   isLoading,
+  isInitialLoading,
   isLoadingMore,
   hasMore,
   onLoadMore,
@@ -93,7 +95,12 @@ export default function ChatContainer({
             </div>
           )}
 
-          {messages.length === 0 ? (
+          {/* Initial loading skeleton */}
+          {isInitialLoading ? (
+            <div className="flex flex-col justify-end h-full">
+              <MessagesSkeleton />
+            </div>
+          ) : messages.length === 0 ? (
             <div className="flex items-center justify-center h-full text-gray-400">
               <p>Start a conversation by sending a message below.</p>
             </div>

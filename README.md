@@ -2,7 +2,7 @@
 
 ## 🎬 Demo Video
 
-🎥 [**Watch Demo on Loom**](https://www.loom.com/share/f11c9f06952e4cfa94f66d71e2ec4e6f)
+🎥 [**Watch Demo on Loom**](https://www.loom.com/share/e7bd3e913a974384ad4ff73f01cbb155)
 
 ## 🚀 Live Demo
 

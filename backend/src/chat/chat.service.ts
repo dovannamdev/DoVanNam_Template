@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import type { Cache } from "cache-manager";
-import { Chat, Message } from "../entities";
+import { Chat, Message, Attachment } from "../entities";
 import { OpenaiService } from "../openai/openai.service";
 import { CreateChatDto, SendMessageDto } from "./dto/chat.dto";
 
@@ -21,6 +21,8 @@ export class ChatService {
     private chatRepository: Repository<Chat>,
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
+    @InjectRepository(Attachment)
+    private attachmentRepository: Repository<Attachment>,
     private openaiService: OpenaiService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
@@ -134,6 +136,21 @@ export class ChatService {
       content: sendMessageDto.content,
     });
     await this.messageRepository.save(userMessage);
+
+    // Save attachments if any
+    if (sendMessageDto.attachments && sendMessageDto.attachments.length > 0) {
+      const attachmentEntities = sendMessageDto.attachments.map((att) =>
+        this.attachmentRepository.create({
+          messageId: userMessage.id,
+          filename: att.filename,
+          originalName: att.filename,
+          mimetype: att.mimeType || "application/octet-stream",
+          path: att.path,
+        }),
+      );
+      await this.attachmentRepository.save(attachmentEntities);
+      userMessage.attachments = attachmentEntities;
+    }
 
     // Update chat title if it's the first message
     if (chat.title === "New Chat") {

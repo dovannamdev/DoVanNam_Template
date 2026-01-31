@@ -47,17 +47,36 @@ export default function ChatInput({
         {files.length > 0 && (
           <div className="flex gap-2 mb-4 flex-wrap">
             {files.map((file, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600"
-              >
-                <span>{file.name}</span>
-                <button
-                  onClick={() => setFiles(files.filter((_, i) => i !== index))}
-                  className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors"
-                >
-                  ×
-                </button>
+              <div key={index} className="relative group">
+                {file.type.startsWith("image/") ? (
+                  <div className="relative">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      className="w-20 h-20 object-cover rounded-lg border border-gray-200"
+                    />
+                    <button
+                      onClick={() =>
+                        setFiles(files.filter((_, i) => i !== index))
+                      }
+                      className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-600 cursor-pointer transition-colors opacity-0 group-hover:opacity-100"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600">
+                    <span className="truncate max-w-[100px]">{file.name}</span>
+                    <button
+                      onClick={() =>
+                        setFiles(files.filter((_, i) => i !== index))
+                      }
+                      className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors"
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -105,7 +124,7 @@ export default function ChatInput({
           multiple
           onChange={handleFileSelect}
           className="hidden"
-          accept="image/*,.pdf,.doc,.docx,.txt"
+          accept="image/*"
         />
       </div>
     </div>
