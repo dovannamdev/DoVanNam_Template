@@ -30,11 +30,13 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
                     href={`${API_URL}${attachment.path}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="block"
                   >
                     <img
                       src={`${API_URL}${attachment.path}`}
                       alt={attachment.originalName}
-                      className="max-w-[200px] max-h-[150px] rounded-lg object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                      className="w-[200px] h-[150px] rounded-lg object-cover cursor-pointer hover:opacity-90 transition-opacity bg-gray-100"
+                      loading="lazy"
                     />
                   </a>
                 ) : (
