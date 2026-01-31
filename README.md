@@ -2,9 +2,7 @@
 
 ## 🎬 Demo Video
 
-[![Watch Demo](https://cdn.loom.com/sessions/thumbnails/f11c9f06952e4cfa94f66d71e2ec4e6f-00001.jpg)](https://www.loom.com/share/f11c9f06952e4cfa94f66d71e2ec4e6f)
-
-👆 _Click thumbnail to watch demo on Loom_
+🎥 [**Watch Demo on Loom**](https://www.loom.com/share/f11c9f06952e4cfa94f66d71e2ec4e6f)
 
 ## 🚀 Live Demo
 

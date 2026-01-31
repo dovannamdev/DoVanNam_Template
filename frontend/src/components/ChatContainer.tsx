@@ -2,6 +2,7 @@ import { useRef, useEffect, useCallback, useState } from "react";
 import { HiOutlineChevronLeft } from "react-icons/hi";
 import type { Message } from "../types";
 import MessageBubble from "./MessageBubble";
+import MessagesSkeleton from "./MessagesSkeleton";
 
 interface ChatContainerProps {
   messages: Message[];
@@ -80,12 +81,8 @@ export default function ChatContainer({
         onScroll={handleScroll}
       >
         <div className="w-full">
-          {/* Loading more indicator */}
-          {isLoadingMore && (
-            <div className="flex justify-center py-4">
-              <div className="text-gray-400 text-sm">Loading...</div>
-            </div>
-          )}
+          {/* Loading more skeleton */}
+          {isLoadingMore && <MessagesSkeleton />}
 
           {/* Show load more hint */}
           {hasMore && !isLoadingMore && messages.length > 0 && isReady && (

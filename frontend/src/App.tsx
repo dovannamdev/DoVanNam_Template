@@ -89,6 +89,17 @@ function App() {
   const handleSendMessage = async (content: string, files?: File[]) => {
     if (!currentChat) return;
 
+    // Create optimistic user message
+    const tempUserMessage: Message = {
+      id: Date.now(),
+      chatId: currentChat.id,
+      role: "user",
+      content,
+      createdAt: new Date().toISOString(),
+    };
+
+    // Show user message immediately (optimistic update)
+    setMessages((prev) => [...prev, tempUserMessage]);
     setIsLoading(true);
 
     try {
@@ -111,11 +122,16 @@ function App() {
         attachments,
       );
 
-      setMessages((prev) => [...prev, userMessage, assistantMessage]);
+      // Replace temp message with real one and add assistant response
+      setMessages((prev) => [
+        ...prev.filter((m) => m.id !== tempUserMessage.id),
+        userMessage,
+        assistantMessage,
+      ]);
     } catch (error) {
       console.error("Failed to send message:", error);
       const errorMessage: Message = {
-        id: Date.now(),
+        id: Date.now() + 1,
         chatId: currentChat.id,
         role: "assistant",
         content:
