@@ -14,6 +14,8 @@ async function bootstrap() {
       "http://localhost:5173",
       "http://localhost:3000",
       "http://localhost:3092",
+      "https://namdo-chat.up.railway.app",
+      "https://dovannam-template.railway.app",
     ],
     credentials: true,
   });
